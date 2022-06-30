@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ person.username }}의 프로필 페이지</h1>
+  {% with followings=person.followings.all followers=person.followers.all %}
+    <div id='follow-count'>팔로잉 : {{ followings|length }} / 팔로워 : {{ followers|length }}</div>
+    {% if request.user != person %}
+      <div>
+        <form id="follow-form" data-id="{{ person.pk }}">
+          {% csrf_token %}
+          {% if request.user in followers %}
+            <input id="follow-input" type="submit" value="언팔로우">
+          {% else %}
+            <input id="follow-input" type="submit" value="팔로우">
+          {% endif %}
+        </form>
+      </div>
+    {% endif %}
+  {% endwith %}
+  
+{% endblock content%}
+
+{% block script %}
+  <script>
+    
+    const form = document.querySelector('#follow-form')
+    if (form != null) {
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault()
+  
+        
+        const userId = event.target.dataset.id
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+  
+        axios({
+          method: 'post',
+          url: `http://127.0.0.1:8000/accounts/${userId}/follow/`,
+          headers: {'X-CSRFToken': csrftoken},
+        })
+          .then(response => {
+            const isFollowed = response.data.is_followed
+            const followBtn = document.querySelector('#follow-input')
+            const followCountDiv = document.querySelector('#follow-count')
+            const followersCount = response.data.followers_count
+            const followingsCount = response.data.followings_count
+  
+            if(isFollowed === true) {
+              followBtn.value = '언팔로우'
+            } else {
+              followBtn.value = '팔로우'
+            }
+            
+  
+            followCountDiv.innerText = `팔로잉 수 : ${followingsCount} / 팔로워 수 : ${followersCount}`
+          })
+        
+          .catch(error => {
+            console.log(error)
+          })
+      })
+    }
+  </script>
+
+{% endblock script %}
+
+

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+
+  {% comment %} TITLE {% endcomment %}
+  <div class="titlearea text-center">
+    <h1>DETAIL</h1>
+    <hr>
+  </div>
+  
+  {% comment %}  CARD {% endcomment %}
+  <div class="card col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <img class="card-img-top" src="{{ movie.poster_url }}" alt="poster_url">
+    <div class="card-body">
+  
+      <div class="d-flex">
+        <h5 class="card-title fs-2 fw-bold me-2">{{ movie.title }}</h5>
+        <button type="button" class="btn btn-success">{{ movie.score }}</button>
+      </div>
+  
+      <p class="card-text"><strong>Audience</strong> : {{ movie.audience }}</p>
+      <p class="card-text"><strong>Release Dates</strong> : {{ movie.release_date }}</p>
+      <p class="card-text"><strong>Genre</strong> : {{ movie.genre }}</p>
+      <p class="card-text"><strong>줄거리</strong> :<br> {{ movie.description }}</p>
+    </div>
+
+      {% comment %} CARD 안의 BUTTONS {% endcomment %}
+    <div class="btns d-flex my-2 mx-2">
+      <a class="btn btn-info" href="{% url 'movies:update' movie.pk %}">UPDATE</a>
+    <form action="{% url 'movies:delete' movie.pk %}" method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger mx-1">DELETE</button>
+    </form>
+    </div>
+  </div>
+
+  {% comment %} INDEX로 이동할 BUTTON {% endcomment %}
+  <div class="d-flex justify-content-center my-4">
+    <a class="btn btn-warning" href="{% url 'movies:index' %}">BACK</a>
+  </div>
+  
+  
+{% endblock content %}

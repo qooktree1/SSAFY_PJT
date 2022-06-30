@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block content %}
+<h1>INDEX</h1>
+<a class="btn btn-primary col-12" href="{% url 'movies:new' %}" role="button">NEW</a>
+
+<hr>
+{% for movie in movies %}
+<a class="text-decoration-none fs-4 fw-bold" href="{% url 'movies:detail' movie.pk %}">{{ movie.title }}</a>
+<span class="badge bg-success">{{ movie.score }}</span>
+<hr>
+{% endfor %} {% endblock %}

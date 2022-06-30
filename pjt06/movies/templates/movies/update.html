@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+
+
+  {% comment %} TITLE {% endcomment %}
+  <h1>UPDATE</h1>
+  <hr>
+  <form action="{% url 'movies:update' movie.pk %}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+
+    <div class="btns d-flex ">
+      {% buttons submit='Submit' %}{% endbuttons %}
+      <div class="mx-1"></div>
+      {% buttons reset='Cancel' %}{% endbuttons %}
+    </div>  
+  </form>
+  <hr>
+  <a class="btn btn-info" href="{% url 'movies:index' %}">BACK</a>
+{% endblock content %}

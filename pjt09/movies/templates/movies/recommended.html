@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3  row-cols-lg-4 d-flex justify-content-center">
+  {% for movie in movie_random %}
+  
+  <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{{movie.poster_path}}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title"><strong>영화제목</strong> {{ movie.title }}</h5>
+
+      <p class="card-text"
+      style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;">내용: {{ movie.overview }}</p>
+
+      <p class="card-text">vote_average: {{ movie.vote_average }}</p>
+      <p class="card-text">장르: {{ movie.genre }}</p>
+      <p class="card-text">개봉일: {{ movie.release_date }}</p>
+        
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+{% endblock %}

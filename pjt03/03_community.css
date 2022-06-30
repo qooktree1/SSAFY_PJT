@@ -1,0 +1,13 @@
+/* 03_community.css */
+/* 아래에 코드를 작성해 주세요. */
+
+@media screen and (min-width: 992px) {
+  article {
+    display: none;
+  }
+}
+@media screen and (max-width: 992px) {
+  table {
+    display: none;
+  }
+}

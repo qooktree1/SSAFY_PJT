@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% block content %}
+<h1>NEW</h1>
+<hr>
+<form action="{% url 'movies:create' %}" method="POST">
+  {% csrf_token %}
+
+  <div class="mb-2">
+    <label for="title" class="form-label">TITLE</label>
+    <input type="text" name="title" class="form-control" id="title" placeholder="영화 제목">
+  </div>
+
+  <div class="mb-2">
+    <label for="audience" class="form-label">AUDIENCE</label>
+    <input type="text" id="audience" name="audience" class="form-control" placeholder="관객 수">
+  </div>
+
+  <div class="mb-2">
+    <label for="release_date" class="form-label">RELEASE_DATE</label>
+    <input type="date" id="release_date" name="release_date" class="form-control" placeholder="개봉일">
+  </div>
+
+  <div class="mb-2">
+    <label for="genre" class="form-label">GENRE</label>
+    <select class="form-select" name="genre" id="genre">
+      <option value="코미디">코미디</option>
+      <option value="액션">액션</option>
+      <option value="판타지">판타지</option>
+    </select>
+  </div>
+  
+  <div class="mb-2">
+    <label for="score" class="form-label">SCORE</label>
+    <input type="text" id="score" name="score" class="form-control" placeholder="평점">
+  </div>
+
+  <div class="mb-2">
+    <label for="poster_url" class="form-label">POSTER_URL</label>
+    <input type="text" id="poster_url" name="poster_url" class="form-control" placeholder="포스터 경로">
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">DESCRIPTION</label>
+    <textarea class="form-control" id="description" name="description" rows="5" placeholder="줄거리"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary col-12" href="{% url 'movies:new' %}">Submit</button>
+</form>
+<hr>
+<a class="btn btn-secondary col-12" href="{% url 'movies:index' %}">Back</a>
+{% endblock %}
